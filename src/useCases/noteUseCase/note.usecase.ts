@@ -9,11 +9,11 @@ import { INoteUseCase } from "./inote.usecase";
 export class NoteUseCase implements INoteUseCase {
   constructor(
     @inject(TYPES.NOTE.ICreateNoteUseCase)
-    private _createNoteUserCase: CreateNoteUseCase
+    private _createNoteUseCase: CreateNoteUseCase
   ) {}
 
   public async create(request: CreateNoteRequest): Promise<Note> {
-    const response: Note = await this._createNoteUserCase.execute(request);
+    const response: Note = await this._createNoteUseCase.process(request);
     return response;
   }
 }

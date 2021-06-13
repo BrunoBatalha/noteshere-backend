@@ -2,13 +2,13 @@ require("dotenv").config();
 import "reflect-metadata";
 import * as express from "express";
 import { InversifyExpressServer } from "inversify-express-utils";
-import { InvesifyConfig } from "./inversify.config";
+import { InversifyConfig } from "./inversify.config";
 
 import "./controllers/userController/user.controller";
 import "./controllers/authController/auth.controller";
 import "./controllers/noteGroupController/noteGroup.controller";
 
-const server = new InversifyExpressServer(new InvesifyConfig()._container);
+const server = new InversifyExpressServer(new InversifyConfig()._container);
 server.setConfig((app) => {
   app.use(express.urlencoded({ extended: true }));
 });

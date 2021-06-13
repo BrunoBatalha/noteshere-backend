@@ -9,11 +9,11 @@ import { INoteGroupUseCase } from "./inoteGroup.usecase";
 export class NoteGroupUseCase implements INoteGroupUseCase {
   constructor(
     @inject(TYPES.NOTE_GROUP.ICreateNoteGroupUseCase)
-    private _createNoteGroupUserCase: CreateNoteGroupUseCase
+    private _createNoteGroupUseCase: CreateNoteGroupUseCase
   ) {}
 
   public async create(request: CreateNoteGroupRequest): Promise<NoteGroup> {
-    const response: NoteGroup = await this._createNoteGroupUserCase.execute(
+    const response: NoteGroup = await this._createNoteGroupUseCase.process(
       request
     );
     return response;

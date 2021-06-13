@@ -31,7 +31,7 @@ Note.init(
     },
   },
   {
-    tableName: "notesGroup",
+    tableName: "notes",
     sequelize: database,
   }
 );

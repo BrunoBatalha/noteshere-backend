@@ -1,15 +1,34 @@
-import { injectable } from "inversify";
 import { BaseEntity } from "../../entities/base.entity";
 import { BaseSpecification } from "../../specifications/base.specification";
+import { BaseValidator } from "../../validators/base.validator";
 import { IBaseRequest } from "./ibase.request";
+import { IBaseUseCase } from "./ibase.usecase";
 
-@injectable()
-export abstract class BaseUseCase<ISpecification extends BaseSpecification> {
-  protected _specification: ISpecification;
+export abstract class BaseUseCase<
+  TSpecification extends BaseSpecification,
+  TBaseRequest extends IBaseRequest,
+  TEntity extends BaseEntity,
+  TValidator extends BaseValidator
+> implements IBaseUseCase {
+  protected _specification: TSpecification;
+  protected _request: TBaseRequest;
+  private _validator: TValidator;
 
-  constructor(iSpecification: ISpecification) {
-    this._specification = iSpecification;
+  constructor(tSpecification: TSpecification, tValidator: TValidator) {
+    this._specification = tSpecification;
+    this._validator = tValidator;
   }
 
-  abstract execute(request: IBaseRequest): Promise<BaseEntity>;
+  protected abstract execute(): Promise<TEntity>;
+
+  public process(request: TBaseRequest): Promise<TEntity> {
+    this._request = request;
+
+    this._validator.validate(request);
+    if (this._validator._validations.length > 0) {
+      throw this._validator._validations;
+    }
+
+    return this.execute();
+  }
 }

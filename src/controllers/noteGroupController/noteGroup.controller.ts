@@ -10,12 +10,12 @@ export class NoteGroupController
   implements interfaces.Controller, INoteGroupController {
   constructor(
     @inject(TYPES.NOTE_GROUP.INoteGroupUseCase)
-    private _noteGroupUserCase: NoteGroupUseCase
+    private _noteGroupUseCase: NoteGroupUseCase
   ) {}
 
   @httpPost("")
   public async createNoteGroup(req: Request, res: Response) {
-    const response = await this._noteGroupUserCase.create(req.body);
+    const response = await this._noteGroupUseCase.create(req.body);
     return res.json(response);
   }
 }
