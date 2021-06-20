@@ -10,6 +10,8 @@ import { AuthUseCase } from "./useCases/authUseCase/auth.usecase";
 import { IAuthUseCase } from "./useCases/authUseCase/iauth.usecase";
 import { CreateNoteGroupUseCase } from "./useCases/noteGroupUseCase/createNoteGroupUseCase/create.noteGroup.usecase";
 import { ICreateNoteGroupUseCase } from "./useCases/noteGroupUseCase/createNoteGroupUseCase/icreate.noteGroup.usecase";
+import { GetNoteGroupUseCase } from "./useCases/noteGroupUseCase/getNoteGroupUseCase/get.noteGroup.usecase";
+import { IGetNoteGroupUseCase } from "./useCases/noteGroupUseCase/getNoteGroupUseCase/iget.noteGroup.usecase";
 import { INoteGroupUseCase } from "./useCases/noteGroupUseCase/inoteGroup.usecase";
 import { NoteGroupUseCase } from "./useCases/noteGroupUseCase/noteGroup.useCase";
 import { CreateNoteUseCase } from "./useCases/noteUseCase/createNoteUseCase/create.note.usecase";
@@ -21,7 +23,9 @@ import { ICreateUserUseCase } from "./useCases/userUseCase/createUserUseCase/icr
 import { IUserUseCase } from "./useCases/userUseCase/iuser.usecase";
 import { UserUseCase } from "./useCases/userUseCase/user.usecase";
 import { CreateNoteGroupValidator } from "./validators/noteGroupValidator/create.noteGroup.validator";
+import { GetNoteGroupValidator } from "./validators/noteGroupValidator/get.noteGroup.validator";
 import { ICreateNoteGroupValidator } from "./validators/noteGroupValidator/icreate.noteGroup.validator";
+import { IGetNoteGroupValidator } from "./validators/noteGroupValidator/iget.noteGroup.validator";
 import { CreateNoteValidator } from "./validators/noteValidator/create.note.validator";
 import { ICreateNoteValidator } from "./validators/noteValidator/icreate.note.validator";
 import { CreateUserValidator } from "./validators/userValidator/create.user.validator";
@@ -39,51 +43,33 @@ export class InversifyConfig {
   }
 
   private bindToUser() {
-    this._container
-      .bind<IUserSpecification>(TYPES.USER.IUserSpecification)
-      .to(UserSpecification);
-    this._container
-      .bind<ICreateUserValidator>(TYPES.USER.VALIDATOR.ICreateUserValidator)
-      .to(CreateUserValidator);
+    this._container.bind<IUserSpecification>(TYPES.USER.IUserSpecification).to(UserSpecification);
+    this._container.bind<ICreateUserValidator>(TYPES.USER.VALIDATOR.ICreateUserValidator).to(CreateUserValidator);
     this._container.bind<IUserUseCase>(TYPES.USER.IUserUseCase).to(UserUseCase);
-    this._container
-      .bind<ICreateUserUseCase>(TYPES.USER.ICreateUserUseCase)
-      .to(CreateUserUseCase);
+    this._container.bind<ICreateUserUseCase>(TYPES.USER.ICreateUserUseCase).to(CreateUserUseCase);
   }
 
   private bindToAuth() {
-    this._container
-      .bind<IAuthUseCase>(TYPES.AUTH.IAuthUserUseCase)
-      .to(AuthUseCase);
+    this._container.bind<IAuthUseCase>(TYPES.AUTH.IAuthUserUseCase).to(AuthUseCase);
   }
 
   private bindToNoteGroup() {
+    this._container.bind<INoteGroupSpecification>(TYPES.NOTE_GROUP.INoteGroupSpecification).to(NoteGroupSpecification);
     this._container
-      .bind<INoteGroupSpecification>(TYPES.NOTE_GROUP.INoteGroupSpecification)
-      .to(NoteGroupSpecification);
-    this._container
-      .bind<ICreateNoteGroupValidator>(
-        TYPES.NOTE_GROUP.VALIDATOR.ICreateNoteGroupValidator
-      )
+      .bind<ICreateNoteGroupValidator>(TYPES.NOTE_GROUP.VALIDATOR.ICreateNoteGroupValidator)
       .to(CreateNoteGroupValidator);
     this._container
-      .bind<INoteGroupUseCase>(TYPES.NOTE_GROUP.INoteGroupUseCase)
-      .to(NoteGroupUseCase);
-    this._container
-      .bind<ICreateNoteGroupUseCase>(TYPES.NOTE_GROUP.ICreateNoteGroupUseCase)
-      .to(CreateNoteGroupUseCase);
+      .bind<IGetNoteGroupValidator>(TYPES.NOTE_GROUP.VALIDATOR.IGetNoteGroupValidator)
+      .to(GetNoteGroupValidator);
+    this._container.bind<INoteGroupUseCase>(TYPES.NOTE_GROUP.INoteGroupUseCase).to(NoteGroupUseCase);
+    this._container.bind<ICreateNoteGroupUseCase>(TYPES.NOTE_GROUP.ICreateNoteGroupUseCase).to(CreateNoteGroupUseCase);
+    this._container.bind<IGetNoteGroupUseCase>(TYPES.NOTE_GROUP.IGetNoteGroupUseCase).to(GetNoteGroupUseCase);
   }
 
   private bindToNote() {
-    this._container
-      .bind<INoteSpecification>(TYPES.NOTE.INoteSpecification)
-      .to(NoteSpecification);
-    this._container
-      .bind<ICreateNoteValidator>(TYPES.NOTE.VALIDATOR.ICreateNoteValidator)
-      .to(CreateNoteValidator);
+    this._container.bind<INoteSpecification>(TYPES.NOTE.INoteSpecification).to(NoteSpecification);
+    this._container.bind<ICreateNoteValidator>(TYPES.NOTE.VALIDATOR.ICreateNoteValidator).to(CreateNoteValidator);
     this._container.bind<INoteUseCase>(TYPES.NOTE.INoteUseCase).to(NoteUseCase);
-    this._container
-      .bind<ICreateNoteUseCase>(TYPES.NOTE.ICreateNoteUseCase)
-      .to(CreateNoteUseCase);
+    this._container.bind<ICreateNoteUseCase>(TYPES.NOTE.ICreateNoteUseCase).to(CreateNoteUseCase);
   }
 }

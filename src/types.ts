@@ -16,8 +16,10 @@ const TYPES = {
     INoteGroupUseCase: Symbol("INoteGroupUseCase"),
     ICreateNoteGroupUseCase: Symbol("ICreateNoteGroupUseCase"),
     INoteGroupSpecification: Symbol("INoteGroupSpecification"),
+    IGetNoteGroupUseCase: Symbol("IGetNoteGroupUseCase"),
     VALIDATOR: {
       ICreateNoteGroupValidator: Symbol("ICreateNoteGroupValidator"),
+      IGetNoteGroupValidator: Symbol("IGetNoteGroupValidator"),
     },
   },
 

@@ -8,7 +8,11 @@ import "./controllers/userController/user.controller";
 import "./controllers/authController/auth.controller";
 import "./controllers/noteGroupController/noteGroup.controller";
 
-const server = new InversifyExpressServer(new InversifyConfig()._container);
+const server = new InversifyExpressServer(
+  new InversifyConfig()._container,
+  null,
+  { rootPath: "api/v1" }
+);
 server.setConfig((app) => {
   app.use(express.urlencoded({ extended: true }));
 });

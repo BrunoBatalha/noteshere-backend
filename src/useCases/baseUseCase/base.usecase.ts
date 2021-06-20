@@ -19,9 +19,9 @@ export abstract class BaseUseCase<
     this._validator = tValidator;
   }
 
-  protected abstract execute(): Promise<TEntity>;
+  protected abstract execute(): Promise<TEntity | null>;
 
-  public process(request: TBaseRequest): Promise<TEntity> {
+  public process(request: TBaseRequest): Promise<TEntity | null> {
     this._request = request;
 
     this._validator.validate(request);
